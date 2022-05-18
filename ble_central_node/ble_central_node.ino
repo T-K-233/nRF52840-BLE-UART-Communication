@@ -1,11 +1,11 @@
-#include <bluefruit.h>
+#include "bluefruit.h"
 
 
 typedef struct {
   uint16_t conn_handle;
   BLEClientUart bleuart;
   
-  uint8_t buffer[128];
+  uint8_t buffer[512];
   uint16_t buffer_size;
 } client_connection;
 
@@ -13,9 +13,6 @@ client_connection clients[BLE_MAX_CONNECTION];
 
 
 void onScanHandler(ble_gap_evt_adv_report_t *report) {
-  // Since we configure the scanner with filterUuid()
-  // Scan callback only invoked for device with bleuart service advertised  
-  // Connect to the device with bleuart service in advertising packet
   Bluefruit.Central.connect(report);
 }
 
